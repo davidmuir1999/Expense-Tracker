@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Tracker</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    
+    <form action="#">
+        <div class="container">
+            <h1>Add an Expense</h1>
+            <div class="expense-type">
+                <button id="incomeBtn">Income</button>
+                <button id="outcomeBtn">Outcome</button>
+            </div>
+            <input id="referenceId" type="text" placeholder="Reference">
+            <input id="expenseAmount" type="text" placeholder="Amount">
+            <label id="expenseCategory" for="categories">Category</label>
+            <select id="categories">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <div class="add-expense">
+                <button type="button" id="addBtn">Add Expense</button>
+            </div>
+        </div>
+    </form>
+
+    <script src="app.js"></script>
 </body>
+
 </html>
