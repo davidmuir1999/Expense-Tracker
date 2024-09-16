@@ -16,19 +16,28 @@ body{
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: #F5F7FA;
 }
 
 .container {
     width: 100%;
     max-width: 25rem;
     padding: 1.25rem;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
-    border-radius: 0.5rem;
-    background-color: #f9f9f9;
+    box-shadow: 0 0.25rem 0.8rem rgba(0, 0, 0, 0.05);
+    border-radius: 0.8rem;
+    background-color: #FFFFFF;
 }
 
 h1 {
+    color: #333333;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+}
+
+h2 {
+    color: #666666;
+    font-size: 1rem;
     text-align: center;
     margin-bottom: 1.25rem;
 }
@@ -41,29 +50,100 @@ h1 {
 
 .expense-type button {
     width: 48%;
-    padding: 0.75rem;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 1.5rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
     font-size: 1rem;
     cursor: pointer;
+    transition: all 0.2s ease-out, transform 0.2s ease-out;
 }
 
 .expense-type button.active{
-    background-color: blue;
+    background-color: #007bff;
+    color: white;
+    transition: all 0.2s ease-in, transform 0.2s ease-in;
+}
+
+input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #333333;
+    border: 0.075rem solid #E0E0E0;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease-out, transform 0.2s ease-out;
+}
+
+input::placeholder {
+    color: #999999;
+}
+
+input:hover{
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease-in, transform 0.2s ease-in;
+}
+
+input:focus {
+    border-color: #007bff;
+    outline: none;
+    transition: border-color 0.2s ease-in, transform 0.2s ease-in;
+}
+
+.categoriesContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 60rem;
+    padding: 1rem;
+}
+
+.categoryDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 4rem;
+}
+
+.categoryDiv button {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: #007bff;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.1s ease-out, transform 0.1s ease-out;
+}
+
+.categoryDiv i{
+    font-size: 1.2rem;
     color: white;
 }
 
-input, select {
-    width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    border: 0.075rem solid #ccc;
-    border-radius: 0.25rem;
+.categoryDiv button:hover {
+    transform: scale(1.05);
 }
 
-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
+.categoryDiv button.active{
+    outline: #999999 0.2rem solid;
+    transition: outline 0.05s ease-in, transform 0.05s ease-in;
+}
+
+.categoryDiv p{
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: bolder;
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #333333;
 }
 
 .add-expense {
@@ -73,12 +153,19 @@ label {
 
 .add-expense button{
     width: 100%;
-    padding: 0.75rem;
+    font-weight: bolder;
+    padding: 0.8rem 2rem;
+    margin-top: 1.25rem;
+    border: none;
+    border-radius: 1.5rem;
+    background-color: #1E88E5;
+    color: #FFFFFF;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
     cursor: pointer;
 }
 
 .add-expense button:hover{
-    background-color: blue;
-    color: white;
-    transition: all 0.5s ease;
+    background-color: #007bff;
+    box-shadow: 0 0.25rem 1rem rgba(33, 150,243, 0.2);
+    transition: all 0.3s ease;
 }
