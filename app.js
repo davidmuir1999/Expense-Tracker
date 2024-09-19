@@ -3,8 +3,10 @@ const outcomeBtn = document.getElementById('outcomeBtn');
 const referenceInput = document.getElementById('referenceId');
 const amountInput = document.getElementById('expenseAmount');
 const categoryList = document.getElementById('categoriesContainer');
-// const categoryEntry = document.getElementById('category');
 const addBtn = document.getElementById('addBtn');
+const addExpense = document.getElementById('openModal');
+const closeModal = document.getElementById('closeModal');
+const modal = document.getElementById('expenseModal');
 
 let selectedType = null;
 let categoryType = null;
@@ -145,7 +147,7 @@ addBtn.addEventListener('click', function () {
     const amount = parseFloat(amountInput.value);
 
     if (!selectedType || !reference || isNaN(amount) || !categoryType) {
-        alert('Please fill out all fields and select Income/Outcome');
+        alert('Please fill out all fields');
         return;
     }
 
@@ -164,6 +166,8 @@ addBtn.addEventListener('click', function () {
         totalAmount -= amount;
     }
 
+    modal.style.display = 'none';
+
     referenceInput.value = '';
     amountInput.value = '';
 
@@ -180,3 +184,12 @@ addBtn.addEventListener('click', function () {
     console.log(totalAmount);
 });
 
+addExpense.onclick = function(){
+    addExpense.style.visibility = 'hidden';
+    modal.style.display = 'block';
+}
+
+closeModal.onclick = function(){
+    modal.style.display = 'none';
+    addExpense.style.visibility = 'visible';
+}

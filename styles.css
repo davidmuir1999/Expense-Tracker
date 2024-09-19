@@ -20,6 +20,7 @@ body{
 }
 
 .container {
+    position: relative;
     width: 100%;
     max-width: 25rem;
     padding: 1.25rem;
@@ -42,10 +43,44 @@ h2 {
     margin-bottom: 1.25rem;
 }
 
+.expenseModal {
+    display: none;
+}
+
+.openModal {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 2rem;
+    margin: 1rem;
+}
+
+.openModal i{
+    font-size: 2rem;
+}
+
+.closeModal{
+    display: block;
+    margin-left: auto;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.closeModal i{
+    font-size: 0.8rem;
+}
+
 .expense-type {
     display: flex;
     justify-content: space-between;
     margin-bottom: 1rem;
+    cursor: pointer;
 }
 
 .expense-type button {
@@ -156,15 +191,18 @@ input:focus {
     font-weight: bolder;
     padding: 0.8rem 2rem;
     margin-top: 1.25rem;
-    border: none;
     border-radius: 1.5rem;
-    background-color: #1E88E5;
-    color: #FFFFFF;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
-    cursor: pointer;
 }
 
-.add-expense button:hover{
+.main-button {
+    background-color: #1E88E5;
+    color: #FFFFFF;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.main-button:hover {
     background-color: #007bff;
     box-shadow: 0 0.25rem 1rem rgba(33, 150,243, 0.2);
     transition: all 0.3s ease;

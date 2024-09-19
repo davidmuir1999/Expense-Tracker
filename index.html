@@ -9,8 +9,13 @@
 </head>
 
 <body>
-    <form action="#">
+    <form class="expenseModal" id="expenseModal">
         <div class="container">
+            <div>
+                <button id="closeModal" class="closeModal">
+                    <i class="fa-solid fa-x"></i>
+                </button>
+            </div>
             <h1>Add an Expense</h1>
             <div class="expense-type">
                 <button class="incomeBtn" id="incomeBtn">Income</button>
@@ -23,10 +28,15 @@
                 <!-- <div class="category" id="category"></div> -->
             </div>
             <div class="add-expense">
-                <button type="button" id="addBtn">Add Expense</button>
+                <button type="button" id="addBtn" class="main-button">Add Expense</button>
             </div>
         </div>
     </form>
+    <div>
+        <button id="openModal" class="openModal main-button">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+    </div>
 
     <script src="app.js"></script>
     <script src="https://kit.fontawesome.com/8c40c3a30f.js" crossorigin="anonymous"></script>
