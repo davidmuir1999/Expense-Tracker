@@ -105,7 +105,8 @@ function categoryGenerator(obj) {
 
         categoryIcon.className = category.icon;
         categoryTitle.textContent = category.categoryName;
-        categoryBtn.style.backgroundColor = category.background
+        categoryBtn.style.backgroundColor = category.background;
+        categoryBtn.type = 'button';
         categoryDiv.className = 'categoryDiv';
 
         categoryBtn.addEventListener('click', () => {
