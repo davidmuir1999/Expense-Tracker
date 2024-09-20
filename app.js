@@ -167,6 +167,7 @@ addBtn.addEventListener('click', function () {
     }
 
     modal.style.display = 'none';
+    addExpense.style.visibility = 'visible';
 
     referenceInput.value = '';
     amountInput.value = '';
