@@ -7,6 +7,7 @@ const addBtn = document.getElementById('addBtn');
 const addExpense = document.getElementById('openModal');
 const closeModal = document.getElementById('closeModal');
 const modal = document.getElementById('expenseModal');
+const dashboard = document.getElementById('dashboard');
 
 let selectedType = null;
 let categoryType = null;
@@ -167,9 +168,6 @@ addBtn.addEventListener('click', function () {
         totalAmount -= amount;
     }
 
-    modal.style.display = 'none';
-    addExpense.style.visibility = 'visible';
-
     referenceInput.value = '';
     amountInput.value = '';
 
@@ -181,17 +179,15 @@ addBtn.addEventListener('click', function () {
     incomeBtn.classList.remove('active');
     outcomeBtn.classList.remove('active');
 
-    console.log(expense);
-    console.log(expenses);
-    console.log(totalAmount);
+    toggleModal();
 });
 
-addExpense.onclick = function(){
-    addExpense.style.visibility = 'hidden';
-    modal.style.display = 'block';
+function toggleModal(){
+    modal.classList.toggle('active');
+    addExpense.classList.toggle('active');
+    document.body.classList.toggle('modal-active');
 }
 
-closeModal.onclick = function(){
-    modal.style.display = 'none';
-    addExpense.style.visibility = 'visible';
-}
+addExpense.addEventListener('click', toggleModal);
+closeModal.addEventListener('click', toggleModal);
+

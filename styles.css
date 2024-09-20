@@ -10,44 +10,58 @@ html{
     scroll-behavior: smooth;
 }
 
-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+body {
     background-color: #F5F7FA;
 }
 
-.container {
-    position: relative;
+body.modal-active {
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: background-color 0.4s ease;
+}
+
+#dashboard {
+    z-index: 1;
+}
+
+.expenseModal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    z-index: 60;
     width: 100%;
     max-width: 25rem;
     padding: 1.25rem;
     box-shadow: 0 0.25rem 0.8rem rgba(0, 0, 0, 0.05);
     border-radius: 0.8rem;
     background-color: #FFFFFF;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-h1 {
+.expenseModal.active {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    visibility: visible;
+}
+
+.expenseModal h1 {
     color: #333333;
     font-size: 1.5rem;
     text-align: center;
     margin-bottom: 1.25rem;
 }
 
-h2 {
+.expenseModal h2 {
     color: #666666;
     font-size: 1rem;
     text-align: center;
     margin-bottom: 1.25rem;
 }
 
-.expenseModal {
-    display: none;
-}
-
 .openModal {
+    z-index: 10;
     position: fixed;
     bottom: 0px;
     right: 0px;
@@ -55,10 +69,17 @@ h2 {
     height: 4rem;
     border-radius: 2rem;
     margin: 1rem;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+    
 }
 
 .openModal i{
     font-size: 2rem;
+}
+
+.openModal.active {
+    opacity: 0;
 }
 
 .closeModal{
