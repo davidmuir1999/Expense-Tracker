@@ -144,6 +144,13 @@ outcomeBtn.addEventListener('click', function () {
     toggleExpenseType(outcomeBtn, incomeBtn);
 });
 
+function getCurrentDateAndMonth() {
+    const date = new Date;
+    const day = date.getDate();
+    const month = date.toLocaleDateString('en-UK', {month: 'short'});
+    return [month, day]
+}
+
 addBtn.addEventListener('click', function () {
     const reference = referenceInput.value;
     const amount = parseFloat(amountInput.value);
@@ -157,7 +164,8 @@ addBtn.addEventListener('click', function () {
         type: selectedType,
         reference: reference,
         amount: amount,
-        category: categoryType
+        category: categoryType,
+        date: getCurrentDateAndMonth()
     };
 
     expenses.push(expense);
@@ -180,6 +188,8 @@ addBtn.addEventListener('click', function () {
     outcomeBtn.classList.remove('active');
 
     toggleModal();
+    console.log(expense);
+    console.log(totalAmount);
 });
 
 function toggleModal(){
