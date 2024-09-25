@@ -1,251 +1,252 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
 }
 
 body {
-    background-color: #F5F7FA;
+  background-color: #f5f7fa;
 }
 
 body.modal-active {
-    background-color: rgba(0, 0, 0, 0.9);
-    transition: background-color 0.4s ease;
+  background-color: rgba(0, 0, 0, 0.9);
+  transition: background-color 0.4s ease;
 }
 
 #dashboard {
-    z-index: 1;
+  z-index: 1;
 }
 
 .expenseModal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -60%);
-    z-index: 60;
-    width: 95%;
-    height: 95vh;
-    max-width: 25rem;
-    padding: 1.25rem;
-    box-shadow: 0 0.25rem 0.8rem rgba(0, 0, 0, 0.05);
-    border-radius: 3px;
-    background-color: #FFFFFF;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    overflow: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  z-index: 60;
+  width: 95%;
+  height: 95vh;
+  max-width: 25rem;
+  padding: 1.25rem;
+  box-shadow: 0 0.25rem 0.8rem rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  background-color: #ffffff;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  overflow: hidden;
 }
 
 .expenseModal.active {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-    visibility: visible;
-    overflow-y: auto;
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  visibility: visible;
+  overflow-y: auto;
 }
 
 .expenseModal::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 
 .expenseModal::-webkit-scrollbar-thumb {
-    background-color: #007bff;
-    border-radius: 1rem;
+  background-color: #007bff;
+  border-radius: 1rem;
 }
 
 .expenseModal h1 {
-    color: #333333;
-    font-size: 1.5rem;
-    text-align: center;
-    margin-bottom: 1.25rem;
+  color: #333333;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 1.25rem;
 }
 
 .expenseModal h2 {
-    color: #666666;
-    font-size: 1rem;
-    text-align: center;
+  color: #666666;
+  font-size: 1rem;
+  text-align: center;
 }
 
 .openModal {
-    z-index: 10;
-    position: fixed;
-    bottom: 0px;
-    right: 0px;
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 2rem;
-    margin: 1rem;
-    opacity: 1;
-    transition: opacity 0.4s ease;
-    
+  z-index: 10;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 2rem;
+  margin: 1rem;
+  opacity: 1;
+  transition: opacity 0.4s ease;
 }
 
-.openModal i{
-    font-size: 1.5rem;
+.openModal i {
+  font-size: 1.5rem;
 }
 
 .openModal.active {
-    opacity: 0;
+  opacity: 0;
 }
 
-.closeModal{
-    display: block;
-    margin-left: auto;
-    width: 1.5rem;
-    height: 1.5rem;
-    border: none;
-    border-radius: 1rem;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
-    cursor: pointer;
+.closeModal {
+  display: block;
+  margin-left: auto;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
-.closeModal i{
-    font-size: 0.75rem;
+.closeModal i {
+  font-size: 0.75rem;
 }
 
 .expense-type {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 .expense-type button {
-    width: 48%;
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 1.5rem;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease-out, transform 0.2s ease-out;
+  width: 48%;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 1.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease-out, transform 0.2s ease-out;
 }
 
-.expense-type button.active{
-    background-color: #007bff;
-    color: white;
-    transition: all 0.2s ease-in, transform 0.2s ease-in;
+.expense-type button.active {
+  background-color: #007bff;
+  color: white;
+  transition: all 0.2s ease-in, transform 0.2s ease-in;
 }
 
 input {
-    width: 100%;
-    padding: 0.8rem 1rem;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    color: #333333;
-    border: 0.075rem solid #E0E0E0;
-    border-radius: 0.25rem;
-    transition: all 0.2s ease-out, transform 0.2s ease-out;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #333333;
+  border: 0.075rem solid #e0e0e0;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease-out, transform 0.2s ease-out;
 }
 
 input::placeholder {
-    color: #999999;
+  color: #999999;
 }
 
-input:hover{
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.2s ease-in, transform 0.2s ease-in;
+input:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease-in, transform 0.2s ease-in;
 }
 
 input:focus {
-    border-color: #007bff;
-    outline: none;
-    transition: border-color 0.2s ease-in, transform 0.2s ease-in;
+  border-color: #007bff;
+  outline: none;
+  transition: border-color 0.2s ease-in, transform 0.2s ease-in;
 }
 
 .categoriesContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 60rem;
-    padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 60rem;
+  padding: 1rem;
 }
 
 .categoryDiv {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 4rem;
-    margin: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 4rem;
+  margin: 0.5rem;
 }
 
 .categoryDiv button {
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 50%;
-    background-color: #007bff;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: transform 0.1s ease-out;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background-color: #007bff;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.1s ease-out;
 }
 
-.categoryDiv i{
-    font-size: 1.4rem;
-    color: white;
+.categoryDiv i {
+  font-size: 1.4rem;
+  color: white;
 }
 
 .categoryDiv button:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
-.categoryDiv button.active{
-    outline: #999999 0.2rem solid;
-    transition: outline 0.05s ease-in, transform 0.05s ease-in;
+.categoryDiv button.active {
+  outline: #999999 0.2rem solid;
+  transition: outline 0.05s ease-in, transform 0.05s ease-in;
 }
 
-.categoryDiv p{
-    margin-top: 0.5rem;
-    font-size: 0.75rem;
-    font-weight: bolder;
-    text-align: center;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: #333333;
+.categoryDiv p {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: bolder;
+  text-align: center;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #333333;
 }
 
 .add-expense {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
-.add-expense button{
-    width: 100%;
-    font-weight: bolder;
-    padding: 0.8rem 2rem;
-    border-radius: 1.5rem;
+.add-expense button {
+  width: 100%;
+  font-weight: bolder;
+  padding: 0.8rem 2rem;
+  border-radius: 1.5rem;
 }
 
 .main-button {
-    background-color: #1E88E5;
-    color: #FFFFFF;
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  background-color: #1e88e5;
+  color: #ffffff;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
 .main-button:hover {
-    background-color: #007bff;
-    box-shadow: 0 0.25rem 1rem rgba(33, 150,243, 0.2);
-    transition: all 0.3s ease;
+  background-color: #007bff;
+  box-shadow: 0 0.25rem 1rem rgba(33, 150, 243, 0.2);
+  transition: all 0.3s ease;
 }
 
 @media (max-width: 768px) {
-    .expenseModal {
-        height: 80vh;
-    }
+  .expenseModal {
+    height: 80vh;
+  }
 
-    h1, h2 {
-        font-size: 1.2rem;
-    }
+  h1,
+  h2 {
+    font-size: 1.2rem;
+  }
 
-    input, button {
-        font-size: 0.9rem;
-    }
+  input,
+  button {
+    font-size: 0.9rem;
+  }
 }
