@@ -148,7 +148,25 @@ function getCurrentDateAndMonth() {
     const date = new Date;
     const day = date.getDate();
     const month = date.toLocaleDateString('en-UK', {month: 'short'});
-    return [month, day]
+    const oridinalSuffix = getOridinalSuffix(day);
+    
+    function getOridinalSuffix(day){
+        if(day > 3 && day < 21){
+            return 'th';
+        }
+
+        switch (day % 10){
+            case 1:
+                return 'st';
+            case 2:
+                return 'nd';
+            case 3:
+                return 'rd';
+        default: 
+            return 'th';
+        }
+    }
+    return `${month} ${day}${oridinalSuffix}`;
 }
 
 addBtn.addEventListener('click', function () {
