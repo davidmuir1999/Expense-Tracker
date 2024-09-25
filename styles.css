@@ -10,13 +10,15 @@ body {
   background-color: #f5f7fa;
 }
 
-body.modal-active {
+body.modal-active #dashboard{
   background-color: rgba(0, 0, 0, 0.9);
-  transition: background-color 0.4s ease;
+  filter: blur(5px);
+  transition: background-color 0.4s ease, filter 0.4s ease;
 }
 
 #dashboard {
   z-index: 1;
+  height: 100vh;
 }
 
 .expenseModal {
