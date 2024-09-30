@@ -3,19 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Expense Tracker</title>
+    <title>Spending Tracker Dashboard</title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="https://kit.fontawesome.com/8c40c3a30f.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/8c40c3a30f.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
 
   <body>
     <section id="dashboard">
-      <canvas id="myChart"></canvas>
-      <div>
-        <button id="openModal" class="openModal main-button">
-          <i class="fa-solid fa-plus"></i>
-        </button>
+      <div class="dashboard-container">
+        <div class="bento-item">
+          <h3>Income vs Expenses</h3>
+          <canvas id="incomeVsExpenses"></canvas>
+        </div>
+        <div class="bento-item">
+          <h3>Spending by Category</h3>
+          <canvas id="spendingByCategory"></canvas>
+        </div>
+        <div class="bento-item">
+          <h3>Expense Trends Over Time</h3>
+          <canvas id="expenseTrends"></canvas>
+        </div>
+        <div class="bento-item">
+          <h3>Top 5 Largest Expenses</h3>
+          <canvas id="topExpenses"></canvas>
+        </div>
+        <div class="bento-item">
+          <h3>Savings Rate</h3>
+          <canvas id="savingsRate"></canvas>
+        </div>
+        <div class="bento-item">
+          <h3>Expense Frequency by Category</h3>
+          <canvas id="expenseFrequency"></canvas>
+        </div>
+      </div>
+      <div class="statement-container">
+        <h3>Income and Outcome Entries</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Reference</th>
+              <th>Amount</th>
+              <th>Category</th>
+              <th>Type</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="transactionList"></tbody>
+        </table>
+        <div>
+          <button id="openModal" class="openModal main-button">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
       </div>
     </section>
     <form class="expenseModal" id="expenseModal">
@@ -24,12 +67,10 @@
           <i class="fa-solid fa-x"></i>
         </button>
       </div>
-      <h1>Add an Expense</h1>
+      <h1 id="modalStart">Add an Expense</h1>
       <div class="expense-type">
         <button type="button" class="incomeBtn" id="incomeBtn">Income</button>
-        <button type="button" class="outcomeBtn" id="outcomeBtn">
-          Outcome
-        </button>
+        <button type="button" class="expenseBtn" id="expenseBtn">Expense</button>
       </div>
       <input id="referenceId" type="text" placeholder="Reference" />
       <input id="expenseAmount" type="text" placeholder="Amount" />
@@ -37,11 +78,10 @@
       <div class="categoriesContainer" id="categoriesContainer"></div>
       <div class="add-expense">
         <button type="button" id="addBtn" class="main-button">
-          Add Expense
+          Add
         </button>
       </div>
     </form>
-
     <script src="app.js"></script>
   </body>
 </html>

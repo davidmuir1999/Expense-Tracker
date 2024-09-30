@@ -1,5 +1,5 @@
 const incomeBtn = document.getElementById("incomeBtn");
-const outcomeBtn = document.getElementById("outcomeBtn");
+const expenseBtn = document.getElementById("expenseBtn");
 const referenceInput = document.getElementById("referenceId");
 const amountInput = document.getElementById("expenseAmount");
 const categoryList = document.getElementById("categoriesContainer");
@@ -7,11 +7,15 @@ const addBtn = document.getElementById("addBtn");
 const addExpense = document.getElementById("openModal");
 const closeModal = document.getElementById("closeModal");
 const modal = document.getElementById("expenseModal");
-const dashboard = document.getElementById("dashboard");
+const incomeVsExpenses = document.getElementById("incomeVsExpenses");
+const spendingByCategory = document.getElementById("spendingByCategory");
+const expenseTrends = document.getElementById("expenseTrends");
+const topExpenses = document.getElementById("topExpenses");
+const savingsRate = document.getElementById("savingsRate");
+const expenseFrequency = document.getElementById("expenseFrequency");
 
 let selectedType = null;
 let categoryType = null;
-let totalAmount = 0;
 let expenses = [];
 
 const categoryObj = [
@@ -137,11 +141,11 @@ function toggleExpenseType(clickedBtn, otherBtn) {
 }
 
 incomeBtn.addEventListener("click", function () {
-  toggleExpenseType(incomeBtn, outcomeBtn);
+  toggleExpenseType(incomeBtn, expenseBtn);
 });
 
-outcomeBtn.addEventListener("click", function () {
-  toggleExpenseType(outcomeBtn, incomeBtn);
+expenseBtn.addEventListener("click", function () {
+  toggleExpenseType(expenseBtn, incomeBtn);
 });
 
 function getCurrentDateAndMonth() {
@@ -169,93 +173,94 @@ function getCurrentDateAndMonth() {
   return `${month} ${day}${oridinalSuffix}`;
 }
 
-addBtn.addEventListener("click", function () {
-  const reference = referenceInput.value;
-  const amount = parseFloat(amountInput.value);
 
-  if (!selectedType || !reference || isNaN(amount) || !categoryType) {
-    alert("Please fill out all fields");
-    return;
-  }
-
-  const expense = {
-    type: selectedType,
-    reference: reference,
-    amount: amount,
-    category: categoryType,
-    date: getCurrentDateAndMonth(),
-  };
-
-  expenses.push(expense);
-
-  if (selectedType === "Income") {
-    totalAmount += amount;
-  } else if (selectedType === "Outcome") {
-    totalAmount -= amount;
-  }
-
-  referenceInput.value = "";
-  amountInput.value = "";
-
-  const allCategoryButtons = document.querySelectorAll(".categoryDiv button");
-  allCategoryButtons.forEach((button) => {
-    button.classList.remove("active");
-  });
-
-  incomeBtn.classList.remove("active");
-  outcomeBtn.classList.remove("active");
-
-  toggleModal();
-  console.log(expense);
-  console.log(totalAmount);
-});
 
 function toggleModal() {
   modal.classList.toggle("active");
   addExpense.classList.toggle("active");
   document.body.classList.toggle("modal-active");
+  
 }
 
 addExpense.addEventListener("click", toggleModal);
 closeModal.addEventListener("click", toggleModal);
 
-// app.js
+function calculateIncomeAndExpenses(expenses) {
+  let totalIncome = 0;
+  let totalExpense = 0;
 
-// Get the canvas element by its ID
-const ctx = document.getElementById('myChart').getContext('2d');
-
-// Create a new Chart instance
-const myChart = new Chart(ctx, {
-    type: 'bar', // Specify chart type (e.g., bar, line, pie)
-    data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-        datasets: [{
-            label: 'Sales',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
+  expenses.forEach((expense) => {
+    if (expense.type === "Income") {
+      totalIncome += expense.amount;
     }
+    if (expense.type === "Expense") {
+      totalExpense += expense.amount;
+    }
+  });
+
+  return { totalIncome, totalExpense };
+}
+
+const incomeVsExpensesChart = new Chart(incomeVsExpenses, {
+  type: "bar",
+  data: {
+    labels: ["Income", "Expenses"],
+    datasets: [
+      {
+        label: "Amount",
+        data: [0, 0],
+        backgroundColor: ["rgba(76, 175, 80, 0.2)", "rgba(244, 67, 54, 0.2)"],
+        borderColor: ["rgba(76, 175, 80, 1)", "rgba(244, 67, 54, 1)"],
+        borderWidth: 1,
+      },
+    ],
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
 });
+
+addBtn.addEventListener("click", function () {
+    const reference = referenceInput.value;
+    const amount = parseFloat(amountInput.value);
+  
+    if (!selectedType || !reference || isNaN(amount) || !categoryType) {
+      alert("Please fill out all fields");
+      return;
+    }
+  
+    const expense = {
+      type: selectedType,
+      reference: reference,
+      amount: amount,
+      category: categoryType,
+      date: getCurrentDateAndMonth(),
+    };
+  
+    referenceInput.value = "";
+    amountInput.value = "";
+  
+    const allCategoryButtons = document.querySelectorAll(".categoryDiv button");
+    allCategoryButtons.forEach((button) => {
+      button.classList.remove("active");
+    });
+  
+    incomeBtn.classList.remove("active");
+    expenseBtn.classList.remove("active");
+  
+    expenses.push(expense);
+  
+    const { totalIncome, totalExpense } = calculateIncomeAndExpenses(expenses);
+
+    incomeVsExpensesChart.data.datasets[0].data = [totalIncome, totalExpense];
+  
+    incomeVsExpensesChart.update();
+
+    modal.scrollTop = 0;
+
+    toggleModal();
+  });
