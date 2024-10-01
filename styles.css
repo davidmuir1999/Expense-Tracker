@@ -255,6 +255,8 @@ h3 {
 }
 
 .bento-item {
+    height: 30rem;
+    position: relative;
     border-radius: 0.8rem;
     padding: 1.5rem;
     box-shadow: 0 0.25rem 0.8rem rgba(0, 0, 0, 0.05);
@@ -265,7 +267,6 @@ h3 {
 
 canvas {
     max-width: 100%;
-    height: 15rem;
 }
 
 .bento-item canvas {
@@ -315,6 +316,10 @@ table tbody tr:hover {
   .dashboard-container {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(6, 1fr);
+  }
+
+  .bento-item {
+    height: 20rem;
   }
 
   canvas {

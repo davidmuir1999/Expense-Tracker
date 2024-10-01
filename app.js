@@ -16,7 +16,37 @@ const expenseFrequency = document.getElementById("expenseFrequency");
 
 let selectedType = null;
 let categoryType = null;
-let expenses = [];
+let expenses = [
+  {
+    type: "Income",
+    reference: "Salary",
+    amount: 3000,
+    category: "Income",
+    date: "Sept 1st",
+  },
+  {
+    type: "Expense",
+    reference: "Food",
+    amount: 200,
+    category: "Groceries",
+    date: "Sept 12th",
+  },
+  {
+    type: "Expense",
+    reference: "Rent",
+    amount: 1200,
+    category: "Bills",
+    date: "Sept 23rd",
+  },
+  {
+    type: "Expense",
+    reference: "Freelance",
+    amount: 500,
+    category: "Income",
+    date: "Sept 29th",
+  },
+];
+let spendingByCategoryChart;
 
 const categoryObj = [
   {
@@ -173,13 +203,10 @@ function getCurrentDateAndMonth() {
   return `${month} ${day}${oridinalSuffix}`;
 }
 
-
-
 function toggleModal() {
   modal.classList.toggle("active");
   addExpense.classList.toggle("active");
   document.body.classList.toggle("modal-active");
-  
 }
 
 addExpense.addEventListener("click", toggleModal);
@@ -201,6 +228,21 @@ function calculateIncomeAndExpenses(expenses) {
   return { totalIncome, totalExpense };
 }
 
+function calculateSpendingByCategory(expenses) {
+  const categoryTotals = {};
+
+  expenses.forEach((expense) => {
+    if (expense.type === "Expense") {
+      if (!categoryTotals[expense.category]) {
+        categoryTotals[expense.category] = 0;
+      }
+      categoryTotals[expense.category] += expense.amount;
+    }
+  });
+
+  return categoryTotals;
+}
+
 const incomeVsExpensesChart = new Chart(incomeVsExpenses, {
   type: "bar",
   data: {
@@ -209,58 +251,138 @@ const incomeVsExpensesChart = new Chart(incomeVsExpenses, {
       {
         label: "Amount",
         data: [0, 0],
-        backgroundColor: ["rgba(76, 175, 80, 0.2)", "rgba(244, 67, 54, 0.2)"],
-        borderColor: ["rgba(76, 175, 80, 1)", "rgba(244, 67, 54, 1)"],
+        backgroundColor: ["#4caf50", "#f44336"],
         borderWidth: 1,
       },
     ],
   },
   options: {
+    maintainAspectRatio: false,
     scales: {
       y: {
         beginAtZero: true,
       },
     },
+    layout: {
+      padding: {
+        left: 24,
+        right: 24,
+        bottom: 24,
+      },
+    },
   },
 });
 
-addBtn.addEventListener("click", function () {
-    const reference = referenceInput.value;
-    const amount = parseFloat(amountInput.value);
-  
-    if (!selectedType || !reference || isNaN(amount) || !categoryType) {
-      alert("Please fill out all fields");
-      return;
-    }
-  
-    const expense = {
-      type: selectedType,
-      reference: reference,
-      amount: amount,
-      category: categoryType,
-      date: getCurrentDateAndMonth(),
-    };
-  
-    referenceInput.value = "";
-    amountInput.value = "";
-  
-    const allCategoryButtons = document.querySelectorAll(".categoryDiv button");
-    allCategoryButtons.forEach((button) => {
-      button.classList.remove("active");
-    });
-  
-    incomeBtn.classList.remove("active");
-    expenseBtn.classList.remove("active");
-  
-    expenses.push(expense);
-  
-    const { totalIncome, totalExpense } = calculateIncomeAndExpenses(expenses);
+function getCategoryColor(categoryName) {
+  const category = categoryObj.find((cat) => cat.categoryName === categoryName);
+  return category.background;
+}
 
-    incomeVsExpensesChart.data.datasets[0].data = [totalIncome, totalExpense];
-  
-    incomeVsExpensesChart.update();
+function createSpendingByCategoryChart(categoryTotals) {
+  const categories = Object.keys(categoryTotals);
+  const amounts = Object.values(categoryTotals);
 
-    modal.scrollTop = 0;
+  const backgroundColors = categories.map((category) =>
+    getCategoryColor(category)
+  );
 
-    toggleModal();
+  if (spendingByCategoryChart) {
+    spendingByCategoryChart.destroy();
+  }
+
+  spendingByCategoryChart = new Chart(spendingByCategory, {
+    type: "doughnut",
+    data: {
+      labels: categories,
+      datasets: [
+        {
+          label: "Spending by Category",
+          data: amounts,
+          backgroundColor: backgroundColors,
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      maintainAspectRatio: false,
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "bottom",
+        },
+        tooltip: {
+          callbacks: {
+            label: function (tooltipItem) {
+              return tooltipItem.label + ": $" + tooltipItem.raw.toFixed(2);
+            },
+          },
+        },
+      },
+      layout: {
+        padding: {
+          left: 24,
+          right: 24,
+          bottom: 24,
+        },
+      },
+    },
   });
+}
+
+function updateIncomeVsExpensesChart() {
+  const { totalIncome, totalExpense } = calculateIncomeAndExpenses(expenses);
+
+  incomeVsExpensesChart.data.datasets[0].data = [totalIncome, totalExpense];
+
+  incomeVsExpensesChart.update();
+}
+
+function updateSpendingByCategoryChart() {
+  const categoryTotals = calculateSpendingByCategory(expenses);
+
+  createSpendingByCategoryChart(categoryTotals);
+}
+
+function initializeCharts() {
+  updateIncomeVsExpensesChart();
+  updateSpendingByCategoryChart();
+}
+
+window.addEventListener("DOMContentLoaded", initializeCharts);
+
+addBtn.addEventListener("click", function () {
+  const reference = referenceInput.value;
+  const amount = parseFloat(amountInput.value);
+
+  if (!selectedType || !reference || isNaN(amount) || !categoryType) {
+    alert("Please fill out all fields");
+    return;
+  }
+
+  const expense = {
+    type: selectedType,
+    reference: reference,
+    amount: amount,
+    category: categoryType,
+    date: getCurrentDateAndMonth(),
+  };
+
+  referenceInput.value = "";
+  amountInput.value = "";
+
+  const allCategoryButtons = document.querySelectorAll(".categoryDiv button");
+  allCategoryButtons.forEach((button) => {
+    button.classList.remove("active");
+  });
+
+  incomeBtn.classList.remove("active");
+  expenseBtn.classList.remove("active");
+
+  expenses.push(expense);
+
+  initializeCharts()
+
+  modal.scrollTop = 0;
+
+  toggleModal();
+});
