@@ -46,6 +46,7 @@ let expenses = [
     date: "Sept 29th",
   },
 ];
+
 let spendingByCategoryChart;
 
 const categoryObj = [
@@ -270,6 +271,15 @@ const incomeVsExpensesChart = new Chart(incomeVsExpenses, {
         bottom: 24,
       },
     },
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (tooltipItem) {
+            return tooltipItem.label + ": £" + tooltipItem.raw.toFixed(2);
+          },
+        },
+      },
+    },
   },
 });
 
@@ -313,7 +323,7 @@ function createSpendingByCategoryChart(categoryTotals) {
         tooltip: {
           callbacks: {
             label: function (tooltipItem) {
-              return tooltipItem.label + ": $" + tooltipItem.raw.toFixed(2);
+              return tooltipItem.label + ": £" + tooltipItem.raw.toFixed(2);
             },
           },
         },
@@ -380,7 +390,7 @@ addBtn.addEventListener("click", function () {
 
   expenses.push(expense);
 
-  initializeCharts()
+  initializeCharts();
 
   modal.scrollTop = 0;
 
