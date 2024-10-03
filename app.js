@@ -9,10 +9,6 @@ const closeModal = document.getElementById("closeModal");
 const modal = document.getElementById("expenseModal");
 const incomeVsExpenses = document.getElementById("incomeVsExpenses");
 const spendingByCategory = document.getElementById("spendingByCategory");
-const expenseTrends = document.getElementById("expenseTrends");
-const topExpenses = document.getElementById("topExpenses");
-const savingsRate = document.getElementById("savingsRate");
-const expenseFrequency = document.getElementById("expenseFrequency");
 
 let selectedType = null;
 let categoryType = null;
@@ -131,6 +127,18 @@ const categoryObj = [
     background: "#FFCA28",
   },
 ];
+
+function updateHeaderBlock(){
+    const currentDateElement = document.getElementById('currentDate');
+    const remainingBalanceElement = document.getElementById('balance');
+
+    currentDateElement.textContent = getCurrentDateAndMonth();
+
+    const { totalIncome, totalExpense } = calculateIncomeAndExpenses(expenses);
+    const remainingBalance = totalIncome - totalExpense;
+
+    remainingBalanceElement.textContent = `Amount Left: £${remainingBalance}`
+}
 
 function categoryGenerator(obj) {
   obj.forEach((category) => {
@@ -353,12 +361,45 @@ function updateSpendingByCategoryChart() {
   createSpendingByCategoryChart(categoryTotals);
 }
 
-function initializeCharts() {
-  updateIncomeVsExpensesChart();
-  updateSpendingByCategoryChart();
+function populateActivityTable(expenses) {
+    const reverseExpenses = expenses.reverse()
+    const tableBody = document.querySelector('#transactionList tbody');
+    tableBody.innerHTML = '';
+
+    reverseExpenses.forEach((expense) => {
+        const row = document.createElement('tr');
+
+        const dateCell = document.createElement('td');
+        const referenceCell = document.createElement('td');
+        const categoryCell = document.createElement('td');
+        const typeCell = document.createElement('td');
+        const amountCell = document.createElement('td');
+
+        dateCell.textContent = expense.date;
+        referenceCell.textContent = expense.reference;
+        categoryCell.textContent = expense.category;
+        typeCell.textContent = expense.type;
+        
+        amountCell.textContent = `£${expense.amount.toFixed(2)}`;
+
+        row.appendChild(referenceCell);
+        row.appendChild(amountCell);
+        row.appendChild(categoryCell);
+        row.appendChild(typeCell);
+        row.appendChild(dateCell);
+
+        tableBody.appendChild(row);
+    });
 }
 
-window.addEventListener("DOMContentLoaded", initializeCharts);
+function initialize() {
+  updateIncomeVsExpensesChart();
+  updateSpendingByCategoryChart();
+  populateActivityTable(expenses);
+  updateHeaderBlock()
+}
+
+window.addEventListener("DOMContentLoaded", initialize);
 
 addBtn.addEventListener("click", function () {
   const reference = referenceInput.value;
@@ -390,7 +431,7 @@ addBtn.addEventListener("click", function () {
 
   expenses.push(expense);
 
-  initializeCharts();
+  initialize();
 
   modal.scrollTop = 0;
 

@@ -245,13 +245,28 @@ h3 {
     color: #333333;
 }
 
+#headerBlock {
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 0.8rem;
+}
+
+#appTitle {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+}
+
+#currentDate, #remainingBalance {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+}
+
 .dashboard-container {
     padding: 1.5rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
     gap: 1.5rem;
-    margin-bottom: 2rem;
 }
 
 .bento-item {
@@ -315,7 +330,7 @@ table tbody tr:hover {
 
   .dashboard-container {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 1fr);
   }
 
   .bento-item {
